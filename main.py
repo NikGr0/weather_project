@@ -1,11 +1,14 @@
-print(132)
+
 
 import requests
 from config.global_config import *
 
-api_key = API_KEY
+#api_key = API_KEY
 
-url = URL
+#URL = URL
 
+r = requests.get(url=URL)
+result = r.json()
+print(result)
 
 
