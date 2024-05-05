@@ -13,12 +13,14 @@ import config as con
 # читаем список городов
 with open(r'config\list_cities.yaml') as file:
     list_cities = yaml.load(file, Loader=yaml.FullLoader)
-print(list_cities)
+#print(list_cities)
 
 # получаем название файла csv
 dt1 = datetime.datetime.now()
-dt_now = 'history/' + str(dt1)[:-7]
-print(dt_now)
+dt_now = 'history/' + str(dt1)[:10] + '_' + str(dt1)[11:13] + '-' + str(dt1)[14:16] + '-' + str(dt1)[17:19] + '.csv'
+#print(dt_now)
+
+
 # получаем данные
 weather = []
 for i in list_cities:
@@ -36,7 +38,9 @@ for i in list_cities:
     weather.append(d)
     time.sleep(1)
 #print(d)
-print(weather)
+#print(weather)
 
 from_history = pd.DataFrame(weather)
 from_history.to_csv(dt_now)
+
+
