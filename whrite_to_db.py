@@ -7,9 +7,11 @@ import datetime as datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+import sys
+sys.path.append("..")
 
-
-
+from model.base import Base
+from model.currency import Currency
 
 
 # читаем список городов
