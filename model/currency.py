@@ -7,9 +7,10 @@ sys.path.append("..")
 
 from model.base import Base
 
-class Currency(Base):
-    __tablename__ = 'currency2'
+class Weather(Base):
+    __tablename__ = 'df_weather'
     id = Column(Integer, nullable=False, unique=True, primary_key=True, autoincrement=True)
-    currency = Column(VARCHAR(50), nullable=False)
-    value = Column(Float, nullable=False)
-    currate_date = Column (TIMESTAMP, nullable=False, index=True)
+    cities = Column(VARCHAR(100), nullable=False)
+    temperature = Column(Float, nullable=False)
+    cloudiness = Column(Integer, nullable=False)
+    create_time = Column(TIMESTAMP, nullable=False, index=True)

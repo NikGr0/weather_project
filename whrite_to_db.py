@@ -1,4 +1,4 @@
-
+# Запись в погоды в базу данных
 import time
 import requests
 import yaml
@@ -11,8 +11,14 @@ import sys
 sys.path.append("..")
 
 from model.base import Base
-from model.currency import Currency
+from model.currency import Weather
 
+
+engine = create_engine(SQLALCHEMY_DATABASE_URI)
+Base.metadata.create_all(bind=engine)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+session_local = SessionLocal()
 
 # читаем список городов
 with open(r'config\list_cities.yaml') as file:
@@ -29,10 +35,14 @@ for i in list_cities:
     temp = result.get('current').get('temp_c')
     cloud = result.get('current').get('cloud')
 
-    d = {'Город': city,
-         'Температура, °С': temp,
-         'Облачность, %': cloud
-         }
-    weather.append(d)
+    new_record = Weather(
+                cities=city,
+                temperature=temp,
+                cloudiness=cloud,
+                create_time=datetime.datetime.now()
+                )
+
+    session_local.add(new_record)
     time.sleep(1)
 
+session_local.commit()
